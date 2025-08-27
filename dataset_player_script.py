@@ -85,17 +85,17 @@ def wait_for_new_screenshot(folder, prev_latest, timeout=10):
 
 def ensure_screenshot_dir_ok(folder):
     if not os.path.isdir(folder):
-        print(f"[!] Screenshot folder not found:\n    {folder}")
+        print(f"Screenshot folder not found:\n    {folder}")
         print("Make sure your Minecraft screenshots path is correct for your OS.")
         print("Press F2 in Minecraft and see where the file appears, then set MC_SCREENSHOT_DIR accordingly.")
         sys.exit(1)
 
 def main():
-    print(f"[i] Using Minecraft screenshots folder:\n    {MC_SCREENSHOT_DIR}")
-    print(f"[i] Destination folder:\n    {DEST_DIR}")
+    print(f"Using Minecraft screenshots folder:\n    {MC_SCREENSHOT_DIR}")
+    print(f"Destination folder:\n    {DEST_DIR}")
     ensure_screenshot_dir_ok(MC_SCREENSHOT_DIR)
 
-    print("[i] You have 5 seconds to click into Minecraft...")
+    print("You have 5 seconds to click into Minecraft...")
     time.sleep(5)
     
     for cmd in [
@@ -127,7 +127,7 @@ def main():
         new_file = wait_for_new_screenshot(MC_SCREENSHOT_DIR, prev_latest, timeout=12)
 
         if not new_file:
-            print(f"[!] Could not detect a new screenshot after teleport {i+1}.")
+            print(f"Could not detect a new screenshot after teleport {i+1}.")
             print("Verify F2 (fn+F2 on Mac) captures screenshots, check Accessibility permissions,")
             print("and confirm the screenshots folder path.")
             continue
@@ -137,11 +137,11 @@ def main():
         dest_path = os.path.join(DEST_DIR, new_name)
         try:
             shutil.move(new_file, dest_path)
-            print(f"[{i+1}/{NUM_TELEPORTS}] Teleported to {x},{y},{z} → saved {new_name}")
+            print(f"[{i+1}/{NUM_TELEPORTS}] Teleported to {x},{y},{z} -> saved {new_name}")
         except Exception as e:
-            print(f"[!] Failed to move {new_file} → {dest_path}: {e}")
+            print(f"Failed to move {new_file} -> {dest_path}: {e}")
 
-    print("[✓] Done.")
+    print("Done.")
 
 if __name__ == "__main__":
     main()
